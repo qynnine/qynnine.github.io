@@ -6,8 +6,8 @@ paginate: 8
 safe: false
 
 #站点基础配置
-title: イヴの時間
-subTitle: 心に鞘はいらない。
+title: Time of Eve
+subTitle: 自由而无用的灵魂。
 description: 
 url: http://qynnine.github.io
 feed: /atom.xml
