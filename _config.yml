@@ -26,8 +26,8 @@ nav:
     url: /contact.html
     icon: icon-envelope-alt
     class: none
-  - text: 联系我
-    url: http://www.zhanxin.info/contact.html
+  - text: WishList
+    url: /wishlist.html
     icon: icon-heart
     class: none
 
