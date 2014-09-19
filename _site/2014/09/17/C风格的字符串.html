@@ -8,10 +8,11 @@
      * Theme Name:     iLotus
      **
     -->
+    <link rel="stylesheet" href=" /assets/highlight/pygments.css">
     <meta charset="UTF-8" />
     <title>
         
-            wa
+            C风格字符串
         
     </title>
     <meta name="generator" content="Jekyll" />
@@ -94,12 +95,26 @@
     <span> &gt; </span>
     <a href="http://niejia.org/archives.html" rel="nofollow" >Archives</a>
     <span> &gt; </span>
-    wa
+    C风格字符串
 </p>
-<h1 class="lotus-pagetit">wa</h1>
+<h1 class="lotus-pagetit">C风格字符串</h1>
 <p class="lotus-meta">Publish: <time class="date" pubdate="September 17, 2014">September 17, 2014</time></p>
 <article  itemscope itemtype="http://schema.org/Article" class="lotus-post">
-<p>ssa <img src="http://niejia.org/assets/images/2013/test.png" width="50px" /></p>
+<p>C++在兼容C的过程中，产生了一些容易混淆的概念，尤其是在字符串方面。</p>
+
+<p>字符串涉及到如下相关的概念：字面值常量、字符串字面值、字符数组、C风格字符串、标准库String。</p>
+
+<p>字面值常量（literal constant）只能用它的值来称呼它，而且是常量表示其不能被修改。每个字面值有其相应的类型，如0是int型，'A'是char型。注意，只有<strong>内置类型</strong>存在字面值。由于不存在“字符串”这样一个内置类型，所以对于"Lucy"这样的字符串字面值（string literals），它的类型就是const char类型的数组，而字符串字面值就是该类型的实例。</p>
+
+<p>C语言不支持现成的字符串，而是以C风格字符串（C-style character string）代替。实际上，C风格字符串既不能确切地归结为C语言的类型，也不能归结为C++语言的类型，而是以空字符'\0'结束的字符数组。</p>
+
+<p>C语言中的 s = "Lucy"，其实是由一个个独立的字符组成的数组：<br/>
+s ＝{'L', 'u', 'c', 'y', '\0'}<br/>
+因此，可以通过索引来引用其中的某个字符，比如s[0]。<strong>C语言并不记录数组的长度</strong>，而依靠字符串末尾的附加字符判断结尾。C风格字符串的标准库函数位于#include <cstring>头文件中。</p>
+
+<p>为了兼容C语言，C++中所有的字符串字面值都由编译器自动在末尾添加一个空字符。例如"A"是包含'A'和空字符两个字符的字符串。</p>
+
+<p><strong>尽管C++支持C风格的字符串，但应尽量避免在C++出现中使用这个类型，而使用标准库类型string。</strong></p>
 
 </article>
 <p class="lotus-anno">声明: 本文采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="自由转载-非商用-非衍生-保持署名">BY-NC-SA</a> 授权。转载请注明转自: <a href="" title="" rel="nofollow">Nie Jia</a></p>
