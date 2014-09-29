@@ -17,7 +17,7 @@ And so, we can say that the interpreter is online, meaning it the work that it d
 ## Compiler
 Now a compiler is structured differently. So, we can draw a picture here.
 
-<img src="{{ site.img_url }}/2014/interpreter.png" alt="Interpreters" width="400px" />
+<img src="{{ site.img_url }}/2014/interpreters.png" alt="Interpreters" width="400px" />
 
 
 
