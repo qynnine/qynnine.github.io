@@ -12,7 +12,7 @@
     <meta charset="UTF-8" />
     <title>
         
-            信息检索技术在需求追踪领域的应用
+            文本信息检索之一：向量空间模型
         
     </title>
     <meta name="generator" content="Jekyll" />
@@ -95,131 +95,21 @@
     <span> &gt; </span>
     <a href="http://niejia.org/archives.html" rel="nofollow" >Archives</a>
     <span> &gt; </span>
-    信息检索技术在需求追踪领域的应用
+    文本信息检索之一：向量空间模型
 </p>
-<h1 class="lotus-pagetit">信息检索技术在需求追踪领域的应用</h1>
-<p class="lotus-meta">Publish: <time class="date" pubdate="October  1, 2014">October  1, 2014</time></p>
+<h1 class="lotus-pagetit">文本信息检索之一：向量空间模型</h1>
+<p class="lotus-meta">Publish: <time class="date" pubdate="October  8, 2014">October  8, 2014</time></p>
 <article  itemscope itemtype="http://schema.org/Article" class="lotus-post">
-<p>我目前关注的领域是Requirement Traceability（需求追踪）。Requirement Traceability，简单的说，是为了建立和维护需求和与该需求相关的元素之间的联系。</p>
 
-<p>我们可以将先将Traceability简单地划归为这样一个问题。在面向对象的系统设计中，代码中的某一个方法（类）实现了文档中的哪一个或几个相关需求。反之，文档中的某一个需求，对应由代码中的哪些函数（类）实现。</p>
-
-<p>可以用如下矩阵来描述上面的对应关系，单元格中的 'x' 表示该单元格所在行的函数与所在列的需求相关。我们称它为Requirement Traceability Matrix（需求跟踪矩阵）。</p>
-
-<table>
-<thead>
-<tr>
-<th>RTM  </th>
-<th> doc1 </th>
-<th> doc2 </th>
-<th> doc3 </th>
-<th> doc4 </th>
-<th> doc5 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>method1 </td>
-<td> </td>
-<td> x </td>
-<td> x </td>
-<td>  </td>
-<td>  </td>
-</tr>
-<tr>
-<td>method2 </td>
-<td>  </td>
-<td>  </td>
-<td> x </td>
-<td>  </td>
-<td>  </td>
-</tr>
-<tr>
-<td>method3 </td>
-<td> </td>
-<td>  </td>
-<td>  </td>
-<td> x </td>
-<td> x </td>
-</tr>
-<tr>
-<td>method4 </td>
-<td> x </td>
-<td>  </td>
-<td> x </td>
-<td>  </td>
-<td>  </td>
-</tr>
-<tr>
-<td>method5 </td>
-<td> </td>
-<td>  </td>
-<td>  </td>
-<td> x </td>
-<td>  </td>
-</tr>
-</tbody>
-</table>
-
-
-<p>代码源文件、需求文档，都是以文本的形式描述。因此追踪关系的建立，可以基于Information Retrieval（信息检索）中的文本检索技术实现。和搜索引擎一样，文本检索实际上是字符串的匹配。IR技术能够用于Traceability是基于这样一个假设，代码中标识符的命名要有意义。在理想情况下，代码和需求文档共用同一个术语表。</p>
-
-<p>搜索引擎是根据用户输入的查询，检索与查询相关的网页，按相关性排序并返回结果。在Traceability的语境下，追踪关系的创建，是利用信息检索技术，将代码（或需求文档）作为查询，检索匹配相应需求文档（代码）的过程。</p>
-
-<h4>信息检索的一般流程</h4>
-
-<p><img src="http://niejia.org/assets/images/2014/ir_flow.png" alt="IR Flow" width="400px" /></p>
-
-<h3>文档表示与索引</h3>
-
-<p>如果以函数为粒度，我们抽取类名、函数名，注释，参数名来表示该函数。代码、需求文档使用词袋（Bag of Words）表示，即一篇文档由该文档中出现的词的集合所表示。它的好处是简单、有效，缺点是忽略了词与词之间的句法关系以及篇章结构信息。在预处理的部分，通常步骤包括词语形态规范化，词形还原，过滤停用词。</p>
-
-<p>查询的关键字在和文档进行匹配时，需要顺序遍历整个文档，为了提高检索效率，我们在第一次遍历时就建立文档的索引结构。下图中的倒排索引，可看作链表数组，每个链表的表头包含关键词，其后续单元则包括所有包括这个关键词的文档标号，以及一些其他信息，比如词的频率。</p>
-
-<table>
-<thead>
-<tr>
-<th>Inverted Index </th>
-<th>  </th>
-<th>  </th>
-<th>  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>word1 </td>
-<td> doc1 </td>
-<td> doc2 </td>
-<td> doc5 </td>
-</tr>
-<tr>
-<td>word2 </td>
-<td> doc2 </td>
-<td> doc4 </td>
-<td>  </td>
-</tr>
-<tr>
-<td>word3 </td>
-<td> doc1 </td>
-<td> doc3 </td>
-<td>  </td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>文本信息检索模型</h3>
-
-<p>信息检索技术的核心问题是，如何准确匹配查询与文档？下面的专题，我会以iTrust作为数据集，介绍三种基本的检索模型：向量空间模型、潜在语义索引、概率模型。</p>
 
 </article>
 <p class="lotus-anno">声明: 本文采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="自由转载-非商用-非衍生-保持署名">BY-NC-SA</a> 授权。转载请注明转自: <a href="" title="" rel="nofollow">Nie Jia</a></p>
 <section class="lotus-nextpage fn-clear">
     
-    <div class="lotus-nextpage-left"><a class="prev" href="/2014/09/29/Introduce%20to_Interpreter_and_Compiler.html" rel="prev">&laquo;&nbsp;Introduce to Interpreter and Compiler...</a></div>
+    <div class="lotus-nextpage-left"><a class="prev" href="/2014/10/01/%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E5%9C%A8%E9%9C%80%E6%B1%82%E8%BF%BD%E8%B8%AA%E9%A2%86%E5%9F%9F%E7%9A%84%E5%BA%94%E7%94%A8.html" rel="prev">&laquo;&nbsp;信息检索在需求追踪领域的应用</a></div>
     
     
-    <div class="lotus-nextpage-right"><a class="next" href="/2014/10/08/%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2%E6%A8%A1%E5%9E%8B.html" rel="next">信息检索&nbsp;&raquo;</a></div>
+    <div class="lotus-nextpage-right"><a class="next" href="/2014/10/09/%E6%BD%9C%E5%9C%A8%E8%AF%AD%E4%B9%89%E7%B4%A2%E5%BC%95.html" rel="next">文本信息检索之二：潜在语义索引&nbsp;&raquo;</a></div>
     
 </section>
 
