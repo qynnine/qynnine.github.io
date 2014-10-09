@@ -208,6 +208,20 @@
 </table>
 
 
+<p>对于简单的索引，我们设计TermDocumentMatrix这样一个数据结构来实现它。</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TermDocumentMatrix</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">double</span><span class="o">[][]</span> <span class="n">matrix</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">termIndex</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">docIndex</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">termIndexLookup</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">docIndexLookup</span><span class="o">;</span>
+    <span class="o">......</span>
+<span class="o">}</span></code></pre></div>
+
+
+<p>假设文档数目为m，所有文档语料库大小为n（共有n个词汇）。matrix是一个m*n的矩阵，m行n列的值表示第n个词汇在文档m中出现的次数。termIndexLookup 将词汇和它所处在matrix中的列标号分别作为键值对保存。</p>
+
 <h3>文本信息检索模型</h3>
 
 <p>信息检索技术的核心问题是，如何准确匹配查询与文档？下面的专题，我会以iTrust作为数据集，介绍三种基本的检索模型：向量空间模型、潜在语义索引、概率模型。</p>
