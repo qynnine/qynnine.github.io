@@ -102,9 +102,9 @@
 <article  itemscope itemtype="http://schema.org/Article" class="lotus-post">
 <p>向量空间模型是现代信息检索系统中比较常用的检索模型，它的思想是将文档与查询都看作是高维空间中的一个向量，每个维度都是一个独立的词汇。</p>
 
-<p><img src="http://niejia.org/assets/images/2014/q.png" alt="q" width="150px" /></p>
+<p><img src="http://niejia.org/assets/images/2014/q.png" alt="q" width="200px" /></p>
 
-<p><img src="http://niejia.org/assets/images/2014/d.png" alt="d" width="150px" /></p>
+<p><img src="http://niejia.org/assets/images/2014/d.png" alt="d" width="200px" /></p>
 
 <h3>TF-IDF</h3>
 
@@ -133,7 +133,8 @@
 
 <p>有了局部权重还不够，如果一个关键词只在很少的文档中出现，那么通过它就容易锁定搜索目标，它的权重也就应该大。反之，如果一个词在大量文档中出现，看到它仍然不很清楚要找什么内容，因此它的权重就应该越小。我们用『逆文本频率指数』（Inverse Document Frequency，缩写为IDF）来衡量关键词的全局权重。</p>
 
-<p><img src="http://niejia.org/assets/images/2014/idf.png" alt="idf" width="150px" /></p>
+<p>idf 公式为：
+<img src="http://niejia.org/assets/images/2014/idf.png" alt="idf" width="150px" /></p>
 
 <p>其中N是全部的文档数，n_i表示词汇i在出现在n_i个文档中，TF－IDF的概念被公认为信息检索中最重要的发明。</p>
 
@@ -153,17 +154,16 @@
 <span class="o">}</span></code></pre></div>
 
 
-<p>ComputeIDF返回一个m维的数组，对应每个词汇的IDF值。</p>
-
-<h4>计算IDF</h4>
+<p>ComputeIDF返回一个m维的数组，对应每个词汇的IDF值。<br/>
+TF 与 IDF 的乘积就是词汇的TF－IDF权重：</p>
 
 <p><img src="http://niejia.org/assets/images/2014/tfidf.png" alt="tfidf" width="150px" /></p>
 
-<h3>相似度计算</h3>
+<h3>查询和文档的相似度</h3>
 
 <p>相似度计算是基于这样一个假设，词是文本的载体，文本的信息和词的语义是联系在一起的，也就是说同一类文本用词都是相似的，不不同类的文本用词各不相同。由于向量空间模型将文档与查询都看作是高维空间中的一个向量，查询与文档的相似性可基于它们在向量空间中的夹角来衡量。给定查询向量q, 文档向量d, 向量长度均为n, 那么其余弦相似度定义为：</p>
 
-<p><img src="http://niejia.org/assets/images/2014/cosine.png" alt="cosine" width="150px" /></p>
+<p><img src="http://niejia.org/assets/images/2014/cosine.png" alt="cosine" width="400px" /></p>
 
 <p>此后，我们可以定义多种筛选结果的方式。例如设置一个阈值Threshold，返回相似度大于给定阈值的文档。或是指定返回相似度最大的前N个文档。</p>
 
